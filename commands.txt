@@ -1,0 +1,14 @@
+
+//to compile individual files
+iverilog src/edge.v
+
+//testbench files wont compile indipendant
+iverilog -o edge src/edge.v tb/edge_tb.v
+
+//convert edge file to edge.vcd
+vvp edge
+
+//open the gtkwave with the dump file
+gtkwave edge.vcd
+
+

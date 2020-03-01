@@ -1,0 +1,55 @@
+#! /usr/bin/vvp
+:ivl_version "0.9.7 " "(v0_9_7)";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0x2094150 .scope module, "chip_top" "chip_top" 2 1;
+ .timescale 0 0;
+v0x20c7b60_0 .net "clk", 0 0, C4<z>; 0 drivers
+v0x20c7c30_0 .net "cnt", 3 0, v0x20c7a30_0; 1 drivers
+v0x20c7d00_0 .net "pulse", 0 0, L_0x20c8170; 1 drivers
+v0x20c7d80_0 .net "rstn", 0 0, C4<z>; 0 drivers
+S_0x20c7790 .scope module, "u0" "counter" 2 6, 3 1, S_0x2094150;
+ .timescale 0 0;
+v0x20c78c0_0 .alias "clk", 0 0, v0x20c7b60_0;
+v0x20c7980_0 .alias "cnt", 3 0, v0x20c7c30_0;
+v0x20c7a30_0 .var "cnt_i", 3 0;
+v0x20c7ab0_0 .alias "rstn", 0 0, v0x20c7d80_0;
+E_0x20c75e0/0 .event negedge, v0x20c7ab0_0;
+E_0x20c75e0/1 .event posedge, v0x20c78c0_0;
+E_0x20c75e0 .event/or E_0x20c75e0/0, E_0x20c75e0/1;
+S_0x2082690 .scope module, "u1" "comparator" 2 7, 4 1, S_0x2094150;
+ .timescale 0 0;
+v0x2082780_0 .net *"_s0", 3 0, C4<0000>; 1 drivers
+v0x20c7420_0 .net *"_s2", 0 0, L_0x20c7f60; 1 drivers
+v0x20c74c0_0 .net *"_s4", 0 0, C4<1>; 1 drivers
+v0x20c7560_0 .net *"_s6", 0 0, C4<0>; 1 drivers
+v0x20c7610_0 .alias "comp_i", 3 0, v0x20c7c30_0;
+v0x20c76b0_0 .alias "comp_o", 0 0, v0x20c7d00_0;
+L_0x20c7f60 .cmp/eq 4, v0x20c7a30_0, C4<0000>;
+L_0x20c8170 .functor MUXZ 1, C4<0>, C4<1>, L_0x20c7f60, C4<>;
+    .scope S_0x20c7790;
+T_0 ;
+    %wait E_0x20c75e0;
+    %load/v 8, v0x20c7ab0_0, 1;
+    %inv 8, 1;
+    %jmp/0xz  T_0.0, 8;
+    %ix/load 0, 4, 0;
+    %assign/v0 v0x20c7a30_0, 0, 0;
+    %jmp T_0.1;
+T_0.0 ;
+    %ix/load 0, 1, 0;
+    %load/vp0 8, v0x20c7a30_0, 4;
+    %ix/load 0, 4, 0;
+    %assign/v0 v0x20c7a30_0, 0, 8;
+T_0.1 ;
+    %jmp T_0;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 5;
+    "N/A";
+    "<interactive>";
+    "src/chip_top.v";
+    "src/counter.v";
+    "src/comparator.v";
