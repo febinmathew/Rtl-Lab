@@ -1,6 +1,3 @@
-
-
-
 module chipt_tb();
 reg clk,rstn;
 wire pulse; 
@@ -30,4 +27,3 @@ $finish
 
 end
 endmodule
-

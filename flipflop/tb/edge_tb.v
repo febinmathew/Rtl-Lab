@@ -15,13 +15,16 @@ initial
 begin
  $dumpfile("edge.vcd");
  $dumpvars(0,edge_tb);
-
+ 
  rstn=0; cin=0; #20; rstn =1;
  #500; cin=1;
- #500; cin=0;
- #500; cin=0;
  #500; cin=1;
- #500; cin=0;
+ @(posedge clk); #1;
+ cin=0;
+ @(posedge clk); #1;
+ cin=1;
+ @(posedge clk); #1;
+ cin=1;
 
  #5000;
  $display("\n*********FINISHING********\n");
